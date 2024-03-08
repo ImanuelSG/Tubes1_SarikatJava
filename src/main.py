@@ -8,14 +8,18 @@ from game.bot_handler import BotHandler
 from game.logic.random import RandomLogic
 from game.util import *
 from game.logic.base import BaseLogic
+from game.logic.ShortestDistance import ShortestDistance
 from game.logic.DensityBot import DensityBot
+from game.logic.PureDensity import PureDensityBot
 
 init()
 BASE_URL = "http://localhost:3000/api"
 DEFAULT_BOARD_ID = 1
 CONTROLLERS = {
     "Random": RandomLogic,
-    "Density": DensityBot,
+    "Short": ShortestDistance,
+    "DensityBest": DensityBot,
+    "DensityNaive": PureDensityBot,
 }
 
 ###############################################################################

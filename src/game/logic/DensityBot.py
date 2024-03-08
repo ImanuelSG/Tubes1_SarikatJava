@@ -19,7 +19,7 @@ class DensityBot(BaseLogic):
         return abs(basepos.x - diamondpos.x) + abs(basepos.y - diamondpos.y)
 
     def getDensity (diamond : GameObject, base : Position, botpos : Position):
-        return ((diamond.points / neededSteps(base, diamond.position))*0.5 + (diamond.points/neededSteps(botpos, diamond.position))*0.5)
+        return ((diamond.properties.points / neededSteps(base, diamond.position))*0.5 + (diamond.properties.points/neededSteps(botpos, diamond.position))*0.5)
 
     def generatePreferedDiamondPath(self, board: Board, board_bot: GameObject):
         listdiamonds = board.diamonds()
@@ -36,14 +36,15 @@ class DensityBot(BaseLogic):
 
     def next_move(self, board_bot: GameObject, board: Board):
         props = board_bot.properties
-        listdiamonds = board.diamonds()
-        print(listdiamonds)
+        listdiamonds = board.diamonds
+        print(listdiamonds[0])
+        print (Board)
         if (props.diamonds == 5) or (props.diamonds == 4 and self.getDensity())  :
             # Move to base
             base = board_bot.properties.base
             self.goal_position = base
         
-        elif (listdiamonds.length <= 1):
+        elif (len(listdiamonds) <= 2):
             diamondbutton = board.game_objects.type == "DiamondButtonGameObject"
             self.goal_position = diamondbutton.position
 

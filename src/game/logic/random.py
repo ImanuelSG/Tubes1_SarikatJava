@@ -22,7 +22,7 @@ class RandomLogic(BaseLogic):
         else:
             # Just roam around
             self.goal_position = None
-        print ()
+       
         current_position = board_bot.position
         if self.goal_position:
             # We are aiming for a specific position, calculate delta
