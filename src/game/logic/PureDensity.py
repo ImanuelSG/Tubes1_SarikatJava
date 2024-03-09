@@ -66,7 +66,8 @@ class PureDensityBot(BaseLogic):
         dm = self.needed_steps(marco.position,current_position)
         dp = self.needed_steps(polo.position,current_position)
         
-        diamond_button = [d for d in board.game_objects if d.type == "DiamondGameObject"]
+        diamond_button = [d for d in board.game_objects if d.type == "DiamondButtonGameObject"]
+        print(diamond_button[0])
         ##Cari teleporter terdekat
         if dp < dm:
             targetTeleporter = polo
