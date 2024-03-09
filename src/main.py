@@ -8,10 +8,10 @@ from game.bot_handler import BotHandler
 from game.logic.random import RandomLogic
 from game.util import *
 from game.logic.base import BaseLogic
-from game.logic.teleportGreed import teleportGreed
-from game.logic.points import points
-from game.logic.PureDensity import PureDensityBot
-from game.logic.SquareDensity import SquareDensity
+from game.logic.Others.teleportGreed import teleportGreed
+from game.logic.Others.points import points
+from game.logic.SarikatJava import SarikatJava
+from game.logic.Others.SquareDensity import SquareDensity
 
 init()
 BASE_URL = "http://localhost:3000/api"
@@ -20,7 +20,7 @@ CONTROLLERS = {
     "Random": RandomLogic,
     "Teleport" : teleportGreed,
     "Point" : points,
-    "DensityNaive": PureDensityBot,
+    "SarikatJava": SarikatJava,
     "Square" : SquareDensity,
 }
 

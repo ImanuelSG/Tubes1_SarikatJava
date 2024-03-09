@@ -98,7 +98,58 @@ In this repository, we experimented with four Greedy algorithm approaches in the
 
 ## Project Structure
 ```
-
+.
+├── README.md
+├── doc
+│   └── SarikatJava.pdf
+└── src
+    ├── README.md
+    ├── __pycache__
+    │   └── decode.cpython-311.pyc
+    ├── decode.py
+    ├── game
+    │   ├── __init__.py
+    │   ├── __pycache__
+    │   │   ├── __init__.cpython-311.pyc
+    │   │   ├── api.cpython-311.pyc
+    │   │   ├── board_handler.cpython-311.pyc
+    │   │   ├── bot_handler.cpython-311.pyc
+    │   │   ├── models.cpython-311.pyc
+    │   │   └── util.cpython-311.pyc
+    │   ├── api.py
+    │   ├── board_handler.py
+    │   ├── bot_handler.py
+    │   ├── logic
+    │   │   ├── Others
+    │   │   │   ├── SquareDensity.py
+    │   │   │   ├── __pycache__
+    │   │   │   │   ├── SquareDensity.cpython-311.pyc
+    │   │   │   │   ├── points.cpython-311.pyc
+    │   │   │   │   └── teleportGreed.cpython-311.pyc
+    │   │   │   ├── points.py
+    │   │   │   └── teleportGreed.py
+    │   │   ├── SarikatJava.py
+    │   │   ├── __init__.py
+    │   │   ├── __pycache__
+    │   │   │   ├── DensityBot.cpython-311.pyc
+    │   │   │   ├── PureDensity.cpython-311.pyc
+    │   │   │   ├── SarikatJava.cpython-311.pyc
+    │   │   │   ├── ShortestDistance.cpython-311.pyc
+    │   │   │   ├── SquareDensity.cpython-311.pyc
+    │   │   │   ├── __init__.cpython-311.pyc
+    │   │   │   ├── base.cpython-311.pyc
+    │   │   │   ├── points.cpython-311.pyc
+    │   │   │   ├── random.cpython-311.pyc
+    │   │   │   └── teleportGreed.cpython-311.pyc
+    │   │   ├── base.py
+    │   │   └── random.py
+    │   ├── models.py
+    │   └── util.py
+    ├── main.py
+    ├── requirements.txt
+    ├── run-bots.bat
+    ├── run-bots.sh
+    └── temp.txt
 ```
 ## Authors
 | Nama                  | NIM      |
