@@ -9,6 +9,8 @@ from game.logic.random import RandomLogic
 from game.util import *
 from game.logic.base import BaseLogic
 from game.logic.ShortestDistance import ShortestDistance
+from game.logic.teleportGreed import teleportGreed
+from game.logic.points import points
 from game.logic.DensityBot import DensityBot
 from game.logic.PureDensity import PureDensityBot
 
@@ -18,6 +20,8 @@ DEFAULT_BOARD_ID = 1
 CONTROLLERS = {
     "Random": RandomLogic,
     "Short": ShortestDistance,
+    "Teleport" : teleportGreed,
+    "Point" : points,
     "DensityBest": DensityBot,
     "DensityNaive": PureDensityBot,
 }
