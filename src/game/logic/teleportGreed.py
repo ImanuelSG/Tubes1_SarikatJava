@@ -48,8 +48,6 @@ class teleportGreed(BaseLogic):
         else:
             # gather diamond
             self.goal_position = None
-
-
         print(current_position)
         if self.goal_position:
             # We are aiming for a specific position, calculate delta
