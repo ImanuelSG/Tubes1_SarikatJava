@@ -13,6 +13,7 @@ from game.logic.teleportGreed import teleportGreed
 from game.logic.points import points
 from game.logic.DensityBot import DensityBot
 from game.logic.PureDensity import PureDensityBot
+from game.logic.SquareDensity import SquareDensity
 
 init()
 BASE_URL = "http://localhost:3000/api"
@@ -24,6 +25,7 @@ CONTROLLERS = {
     "Point" : points,
     "DensityBest": DensityBot,
     "DensityNaive": PureDensityBot,
+    "Square" : SquareDensity
 }
 
 ###############################################################################
