@@ -11,6 +11,8 @@ from game.logic.base import BaseLogic
 from game.logic.ShortestDistance import ShortestDistance
 from game.logic.teleportGreed import teleportGreed
 from game.logic.points import points
+from game.logic.DensityBot import DensityBot
+from game.logic.PureDensity import PureDensityBot
 
 init()
 BASE_URL = "http://localhost:3000/api"
@@ -19,7 +21,9 @@ CONTROLLERS = {
     "Random": RandomLogic,
     "Short": ShortestDistance,
     "Teleport" : teleportGreed,
-    "Point" : points
+    "Point" : points,
+    "DensityBest": DensityBot,
+    "DensityNaive": PureDensityBot,
 }
 
 ###############################################################################
