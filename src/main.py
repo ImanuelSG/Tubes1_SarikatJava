@@ -9,7 +9,7 @@ from game.logic.random import RandomLogic
 from game.util import *
 from game.logic.base import BaseLogic
 from game.logic.ShortestDistance import ShortestDistance
-from game.logic.DensityBot import DensityBot
+from game.logic.DensityBot import HeuristicDensityBot
 from game.logic.PureDensity import PureDensityBot
 
 init()
@@ -18,7 +18,7 @@ DEFAULT_BOARD_ID = 1
 CONTROLLERS = {
     "Random": RandomLogic,
     "Short": ShortestDistance,
-    "DensityBest": DensityBot,
+    "DensityBest": HeuristicDensityBot,
     "DensityNaive": PureDensityBot,
 }
 

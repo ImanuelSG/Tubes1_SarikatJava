@@ -23,7 +23,6 @@ class PureDensityBot(BaseLogic):
         """Find the diamond with the highest density and set it as the goal position."""
         curr_density_max = 0
         curr_density_max_pos = diamonds[0].position
-        
         bot_position = board_bot.position
         for diamond in diamonds:
             density = self.get_density(diamond, bot_position)
@@ -42,7 +41,7 @@ class PureDensityBot(BaseLogic):
         if props.diamonds == 5 : 
             self.goal_position = base
         # If there is only some diamonds left and there the distanc , move towards the diamond trigger button
-        elif len(list_diamonds) == 3 and self.needed_steps(board_bot.position, self.goal_position) > self.needed_steps(diamond_button.position, self.goal_position):
+        elif len(list_diamonds) == 3 and self.goal_position!=None and self.needed_steps(board_bot.position, self.goal_position) > self.needed_steps(diamond_button.position, self.goal_position):
             self.goal_position = diamond_button.position
         # If the goal position is not among the diamonds or it's not set yet, generate the best density
         elif all(self.goal_position != diamond.position for diamond in list_diamonds) or self.goal_position is None:
