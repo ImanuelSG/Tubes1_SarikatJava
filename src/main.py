@@ -9,13 +9,15 @@ from game.logic.random import RandomLogic
 from game.util import *
 from game.logic.base import BaseLogic
 from game.logic.ShortestDistance import ShortestDistance
+from game.logic.teleportGreed import teleportGreed
 
 init()
 BASE_URL = "http://localhost:3000/api"
 DEFAULT_BOARD_ID = 1
 CONTROLLERS = {
     "Random": RandomLogic,
-    "Short": ShortestDistance
+    "Short": ShortestDistance,
+    "Teleport" : teleportGreed
 }
 
 ###############################################################################
