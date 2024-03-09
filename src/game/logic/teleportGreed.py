@@ -10,6 +10,9 @@ class teleportGreed(BaseLogic):
         self.goal_position: Optional[Position] = None
         self.current_direction = 0
 
+    def getDistance(self,point1:Position,point2:Position):
+        return abs(point1.x - point2.x) + abs(point1.y - point2.y)
+
     #bot adalah GameObject dengan properties
     #all others adalah GameObject
     # list diamonds board.diamonds
@@ -22,8 +25,8 @@ class teleportGreed(BaseLogic):
         current_position = board_bot.position
         targetTeleporter = marco
         exitTeleporter = polo
-        dm = abs(marco.position.x-current_position.x)+abs(marco.position.y-current_position.y)
-        dp = abs(polo.position.x-current_position.x)+abs(polo.position.y-current_position.y)
+        dm = self.getDistance(marco.position,current_position)
+        dp = self.getDistance(polo.position,current_position)
         if dp < dm:
             targetTeleporter = polo
             exitTeleporter=marco
@@ -31,10 +34,10 @@ class teleportGreed(BaseLogic):
         if props.diamonds == 5 :
             # Move to base
             base = board_bot.properties.base
-            teleporter_base_distance = abs(exitTeleporter.position.x - base.x) + abs(exitTeleporter.position.y - base.y)
-            distance_to_targetTeleporter = abs(targetTeleporter.position.x-current_position.x)+abs(targetTeleporter.position.y-current_position.y)
+            teleporter_base_distance = self.getDistance(exitTeleporter.position,base)
+            distance_to_targetTeleporter = self.getDistance(targetTeleporter.position,current_position)
             td = teleporter_base_distance + distance_to_targetTeleporter
-            distanceBotBase = abs(base.x-current_position.x)+abs(base.y-current_position.y)
+            distanceBotBase = self.getDistance(base,current_position)
             if(td < distanceBotBase):
                 delta_x, delta_y = get_direction(
                     current_position.x,
@@ -50,10 +53,8 @@ class teleportGreed(BaseLogic):
             self.goal_position = None
 
 
-        print(current_position)
         if self.goal_position:
             # We are aiming for a specific position, calculate delta
-            print(self.goal_position)
             delta_x, delta_y = get_direction(
                 current_position.x,
                 current_position.y,
@@ -70,14 +71,14 @@ class teleportGreed(BaseLogic):
             diamond_distance = []
             diamond_points = []
             for i in range(len(diamonds)):
-                teleporter_diamond_distance.append(abs(diamond_pos[i].x-exitTeleporter.position.x)+abs(diamond_pos[i].y-exitTeleporter.position.y))
-                diamond_distance.append(abs(diamond_pos[i].x-current_position.x)+abs(diamond_pos[i].y-current_position.y))
+                teleporter_diamond_distance.append(self.getDistance(diamond_pos[i],exitTeleporter.position))
+                diamond_distance.append(self.getDistance(diamond_pos[i],current_position))
                 diamond_points.append(diamonds[i].properties.points)
-            distance_to_targetTeleporter = abs(targetTeleporter.position.x-current_position.x)+abs(targetTeleporter.position.y-current_position.y)
+            distance_to_targetTeleporter = self.getDistance(targetTeleporter.position,current_position)
             total_teleporter_distance = distance_to_targetTeleporter + min(teleporter_diamond_distance)
-            if total_teleporter_distance < min(diamond_distance):
+            print(distance_to_targetTeleporter)
+            if total_teleporter_distance < min(diamond_distance) and distance_to_targetTeleporter != 0 :
                 #let's go to the teleporter
-                print("teleporter")
                 delta_x, delta_y = get_direction(
                     current_position.x,
                     current_position.y,
@@ -103,8 +104,6 @@ class teleportGreed(BaseLogic):
                 else:
                     chosenDiamond = diamond_pos[diamond_distance.index(min(diamond_distance))]
 
-                    
-                print("diamond")
                 delta_x, delta_y = get_direction(
                     current_position.x,
                     current_position.y,
