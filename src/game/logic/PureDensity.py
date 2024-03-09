@@ -19,7 +19,7 @@ class PureDensityBot(BaseLogic):
         """Calculate the density of a diamond based on its points and distance from the bot."""
         return diamond.properties.points / self.needed_steps(bot_pos, diamond.position)
 
-    def generate_best_density(self, diamonds: List[GameObject], board_bot: GameObject) -> None:
+    def generate_best_density(self, diamonds: List[GameObject], board_bot: GameObject, start_teleporter_position: Position, end_teleporter_position: Position, distance_to_targetTeleporter : int) -> None:
         """Find the diamond with the highest density and set it as the goal position."""
         curr_density_max = 0
         curr_density_max_pos = diamonds[0].position
@@ -28,10 +28,15 @@ class PureDensityBot(BaseLogic):
         ##calculate density of each diamond and compare it with the current max density
         for diamond in diamonds:
             density = self.get_density(diamond, bot_position)
-            if density > curr_density_max:
-                curr_density_max = density
-                curr_density_max_pos = diamond.position
-
+            #Calculate density based on the distance to the teleporter
+            teleportdensity = diamond.properties.points / (distance_to_targetTeleporter + self.needed_steps(diamond.position, end_teleporter_position) )
+            if density > curr_density_max or teleportdensity > curr_density_max :
+                if (teleportdensity > density):
+                    curr_density_max = teleportdensity
+                    curr_density_max_pos = start_teleporter_position
+                else:
+                    curr_density_max = density
+                    curr_density_max_pos = diamond.position
         ##Langsung set as goal
         self.goal_position = curr_density_max_pos
 
@@ -44,25 +49,59 @@ class PureDensityBot(BaseLogic):
                 break
             else:
                 self.goal_position = diamonds[0].position
-       
+    
     def next_move(self, board_bot: GameObject, board: Board) -> tuple:
+        ##initialize props
         props = board_bot.properties
         base = board_bot.properties.base
         list_diamonds = board.diamonds
+        current_position = board_bot.position
+        
+        ##initialize teleporters
+        list_teleporters = [d for d in board.game_objects if d.type == "TeleportGameObject"]
+        marco = list_teleporters[0]
+        polo = list_teleporters[1]
+        targetTeleporter = marco
+        exitTeleporter = polo
+        dm = self.needed_steps(marco.position,current_position)
+        dp = self.needed_steps(polo.position,current_position)
+        
         diamond_button = [d for d in board.game_objects if d.type == "DiamondGameObject"]
+        ##Cari teleporter terdekat
+        if dp < dm:
+            targetTeleporter = polo
+            exitTeleporter=marco
+
+        ##Cari jarak ke teleporter terdekat
+        distance_to_targetTeleporter = self.needed_steps(targetTeleporter.position,current_position)
         ##Kalau Sudah 4, pastikan cari biru terdekat
+
         if props.diamonds == 4 :
             self.generate_shortest_blue(list_diamonds, board_bot, diamond_button[0].position)
         # If there are 5 diamonds in the inventory, move towards the base
         elif props.diamonds == 5 or props.milliseconds_left < 7000: 
-            self.goal_position = base
+            teleporter_base_distance = self.needed_steps(exitTeleporter.position,base)
+            td = teleporter_base_distance + distance_to_targetTeleporter
+            distanceBotBase = self.needed_steps(base,current_position)
+            if(td < distanceBotBase) and distance_to_targetTeleporter != 0:
+                delta_x, delta_y = get_direction(
+                    current_position.x,
+                    current_position.y,
+                    targetTeleporter.position.x,
+                    targetTeleporter.position.y,
+                )  
+                return delta_x,delta_y
+            else :
+                self.goal_position = base
         # If there is only some diamonds left and there the distanc , move towards the diamond trigger button
-        elif len(list_diamonds) < 3 and self.goal_position!=None and self.needed_steps(board_bot.position, self.goal_position) > self.needed_steps(diamond_button.position, self.goal_position):
-            self.goal_position = diamond_button.position
+        elif len(list_diamonds) < 3 and self.goal_position!=None and self.needed_steps(board_bot.position, self.goal_position) > self.needed_steps(diamond_button[0].position, self.goal_position):
+            self.goal_position = diamond_button[0].position
         # If the goal position is not among the diamonds or it's not set yet, generate the best density
-        elif all(self.goal_position != diamond.position for diamond in list_diamonds) or self.goal_position is None:
-            self.generate_best_density(list_diamonds, board_bot)
+        # If targetTeleporter is not among the teleporters or it's not set yet, generate the best density
+        elif all(self.goal_position != diamond.position for diamond in list_diamonds) or all (targetTeleporter != teleporter.position for teleporter in list_teleporters) or self.goal_position is None:
+            self.generate_best_density(list_diamonds, board_bot, targetTeleporter.position, exitTeleporter.position, distance_to_targetTeleporter)
         current_position = board_bot.position
         delta_x, delta_y = get_direction(current_position.x, current_position.y, self.goal_position.x, self.goal_position.y)
+        
 
         return delta_x, delta_y
