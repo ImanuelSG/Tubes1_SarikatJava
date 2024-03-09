@@ -1,5 +1,7 @@
 # Tubes1_SarikatJava
 
+![image](img/cover.jpg)
+
 ## Contents
 - [General Information](#general-information)
 - [Program Requirements](#program-requirements)
