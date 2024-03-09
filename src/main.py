@@ -11,9 +11,10 @@ from game.logic.base import BaseLogic
 from game.logic.ShortestDistance import ShortestDistance
 from game.logic.teleportGreed import teleportGreed
 from game.logic.points import points
-from game.logic.DensityBot import DensityBot
+from game.logic.DensityBot import HeuristicDensityBot
 from game.logic.PureDensity import PureDensityBot
 from game.logic.SquareDensity import SquareDensity
+from game.logic.SarikatJava import sarikatJava
 
 init()
 BASE_URL = "http://localhost:3000/api"
@@ -23,9 +24,10 @@ CONTROLLERS = {
     "Short": ShortestDistance,
     "Teleport" : teleportGreed,
     "Point" : points,
-    "DensityBest": DensityBot,
+    "DensityBest": HeuristicDensityBot,
     "DensityNaive": PureDensityBot,
-    "Square" : SquareDensity
+    "Square" : SquareDensity,
+    "SJ" : sarikatJava
 }
 
 ###############################################################################
