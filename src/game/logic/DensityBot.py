@@ -51,7 +51,6 @@ class HeuristicDensityBot(BaseLogic):
                     curr_density_max_pos = diamond.position
                     curr_density_max_points = diamond.properties.points
                     curr_max_steps = self.needed_steps(bot_position, diamond.position)
-
                 elif density > sec_density_max and diamond.properties.points == 1:
                     sec_density_max = density
                     sec_density_max_pos = diamond.position
@@ -63,7 +62,6 @@ class HeuristicDensityBot(BaseLogic):
                     curr_density_max_pos = diamond.position
                     curr_density_max_points = diamond.properties.points
                     curr_max_steps = self.needed_steps(bot_position, diamond.position)
-
                 elif density > sec_density_max:
                     sec_density_max = density
                     sec_density_max_pos = diamond.position
@@ -80,7 +78,7 @@ class HeuristicDensityBot(BaseLogic):
         list_diamonds = board.diamonds
         base = board_bot.properties.base
         diamond_button = [d for d in board.game_objects if d.type == "DiamondButtonGameObject"]
-        print(diamond_button)
+       
         if (props.diamonds == 5) or (board_bot.properties.milliseconds_left < self.needed_steps(base, board_bot.position) * 1000 and board_bot.properties.milliseconds_left < 8000)  or self.isending:
             # Move to base
             if (board_bot.properties.milliseconds_left < self.needed_steps(base, board_bot.position) * 1000 and board_bot.properties.milliseconds_left < 8000):
