@@ -18,7 +18,7 @@ class SquareDensity(BaseLogic):
                 distance_x = abs(a_bot.position.x - my_bot.position.x)
                 distance_y = abs(a_bot.position.y - my_bot.position.y)
                 if distance_x == 1 and distance_y == 0:
-                    print(a_bot.properties.name)
+                    print(a_bot.properties.name)    
                     return Position(x=my_bot.position.x, y=abs(my_bot.position.y-1))
                 elif distance_y == 1 and distance_x == 0:
                     print(a_bot.properties.name)
@@ -55,8 +55,7 @@ class SquareDensity(BaseLogic):
         escape_position = self.__escape_from_enemy(my_bot, board)
         if (escape_position == my_bot.position):
             if props.diamonds == 5:
-                base = props.base
-                self.goal_position = base
+                self.goal_position = props.base
             else:
                 temp = []
                 for x in (self.target_path):
