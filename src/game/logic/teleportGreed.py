@@ -38,7 +38,7 @@ class teleportGreed(BaseLogic):
             distance_to_targetTeleporter = self.getDistance(targetTeleporter.position,current_position)
             td = teleporter_base_distance + distance_to_targetTeleporter
             distanceBotBase = self.getDistance(base,current_position)
-            if(td < distanceBotBase):
+            if(td < distanceBotBase) and distance_to_targetTeleporter != 0:
                 delta_x, delta_y = get_direction(
                     current_position.x,
                     current_position.y,
