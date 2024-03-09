@@ -50,7 +50,31 @@ class SquareDensity(BaseLogic):
         # print(self.target_path)
 
     def next_move(self, my_bot: GameObject, board: Board):
-        props = my_bot.properties
+        ##initialize props
+        props = board_bot.properties
+        base = board_bot.properties.base
+        list_diamonds = board.diamonds
+        current_position = board_bot.position
+
+        ##initialize teleporters
+        list_teleporters = [d for d in board.game_objects if d.type == "TeleportGameObject"]
+        marco = list_teleporters[0]
+        polo = list_teleporters[1]
+        targetTeleporter = marco
+        exitTeleporter = polo
+        dm = self.needed_steps(marco.position,current_position)
+        dp = self.needed_steps(polo.position,current_position)
+
+
+        ##Cari teleporter terdekat
+        if dp < dm:
+            targetTeleporter = polo
+            exitTeleporter=marco
+        
+
+        ##Cari jarak ke teleporter terdekat
+        distance_to_targetTeleporter = self.needed_steps(targetTeleporter.position,current_position)
+
 
         escape_position = self.__escape_from_enemy(my_bot, board)
         if (escape_position == my_bot.position):
@@ -63,12 +87,11 @@ class SquareDensity(BaseLogic):
                     if (x in board.diamonds):
                         temp.append(x)
                 self.target_path = temp
-                
                 if(len(self.target_path) != 0):
                     if (props.diamonds == 4 and self.target_path[0].properties.points == 2):
                         self.target_path = self.target_path[1:]
                     elif (self.achieved_head == False and self.path_head not in self.target_path):
-                        self.__max_area_to_distance(my_bot, board)
+                        self.__max_area_to_distance(my_bot, board, targetTeleporter, exitTeleporter, distance_to_targetTeleporter )
                     elif (self.achieved_head == True):
                         if(my_bot.position == self.target_path[0]):
                             self.target_path = self.target_path[1:]
@@ -76,7 +99,7 @@ class SquareDensity(BaseLogic):
                         self.achieved_head = True
                         self.target_path = self.target_path[1:]
                 if(len(self.target_path) == 0):
-                    self.__max_area_to_distance(my_bot, board)
+                    self.__max_area_to_distance(my_bot, board, targetTeleporter, exitTeleporter, distance_to_targetTeleporter)
                 self.goal_position = self.target_path[0].position
         else:
             print("Escape!")
