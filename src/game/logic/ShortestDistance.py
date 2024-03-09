@@ -45,12 +45,14 @@ class ShortestDistance(BaseLogic):
                 diamond_distance.append(((diamond_pos[i].x-current_position.x)**2+(diamond_pos[i].y-current_position.y)**2)**(1/2))
                 diamond_points.append(diamonds[i].properties.points)
             if props.diamonds ==4: #makes it so that it only searches for blue diamonds if inventory = 4
-                min_value = float('inf')  
-                for dis, pts in zip(diamond_distance, diamond_points):
-                    if pts == 1 and dis < min_value:
+                min_value = float('inf') 
+                for diamond, dis in zip(diamonds, diamond_distance):
+                    
+                    if diamond.properties.points == 1 and dis < min_value:
                         min_value = dis
-                temp = min_value
-                chosenDiamond = diamond_pos[diamond_distance.index(temp)]
+                        position = diamond.position
+                ##[1-> merah,1,1,1]
+                chosenDiamond = position   
             else:
                 chosenDiamond = diamond_pos[diamond_distance.index(min(diamond_distance))]
             delta_x, delta_y = get_direction(
